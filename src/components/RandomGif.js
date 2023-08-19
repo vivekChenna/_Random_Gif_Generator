@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import Spinner from "./Spinner";
+import useGif from "./useGif";
 
 const RandomGif = () => {
-  const [gif, setGif] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const REACT_APP_API_KEY = "c8ipNhyttIW2io3IhYKAFfQTPYcaarJ1";
-
-  const getRandomGif = async () => {
-    setLoading(true);
-    const url = `https://api.giphy.com/v1/gifs/random?api_key=${REACT_APP_API_KEY}`;
-    const response = await axios.get(url);
-    console.log(response.data.data.images);
-    const ImageData = response.data.data.images.fixed_height_still.url;
-    // fixed_width
-    setLoading(false);
-    setGif(ImageData);
-  };
-
-  useEffect(() => {
-    getRandomGif();
-  }, []);
-
+  const { loading, gif, getRandomGif } = useGif();
   return (
     <div className="random-gif">
       <p className="random-gif-heading">A RANDOM GIF</p>
